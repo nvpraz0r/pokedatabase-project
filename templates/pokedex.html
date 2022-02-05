@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}PokeDex{% endblock %}
+
+{% block content %}
+<p id="landing_message">POKÉDEX</p>
+<div id="pokemon">
+    <!-- name and sprite -->
+    <div id="info-left">
+        <br>
+        <h3 style="text-transform: capitalize;">#{{ pkm["id"]}} {{ pkm["species"]["name"]}}</h3>
+        <hr>
+        <img id="pokeSprite" src='{{ pkm["sprites"]["other"]["official-artwork"]["front_default"] }}' width="200" height="200">
+        <br><br><br><br>
+        <h3>Height:</h3>
+        <p>{{ pkm["height"]}} inches</p>
+
+        <h3>Weight:</h3>
+        <p>{{ pkm["weight"]}} lbs</p>
+        <br><br>
+
+    </div>
+
+    <!-- advanced stats -->
+    <div id="info-right">
+        {% for item in pkm["type"] %}
+        <li style="text-transform: capitalize;">
+            {{ item.type.name.replace("-", " ") }}
+        </li>
+    {% endfor %}    
+        <br>
+        <h3>Advanced Statistics</h3>
+        <hr>
+        <br>
+        <h3>Abilities:</h3>
+        <ul id="pokeAbility">
+            {% for item in pkm["abilities"] %}
+                    <li style="text-transform: capitalize;">
+                        {{ item.ability.name.replace("-", " ") }}
+                    </li>
+            {% endfor %}                
+        </ul>
+        <br>
+        <h3>Egg Groups:</h3>
+            <ul>
+                <li>Field</li>
+                <li>Fairy</li>
+            </ul>
+            <br><br>
+        <h3>Base Stats</h3>
+        <hr>
+        <div style="display: flex; flex-wrap: wrap; margin: 50px;">
+            {% for item in pkm["stats"] %}
+                <div class="stat" style="width:150px;">
+                    <div class="row" style="text-transform: uppercase;">
+                        <h5>{{ item.stat.name.replace("-", " ").replace("special", "sp.") }}</h5>
+                    </div>
+                    <div class="row">
+                        <h5>{{ item.base_stat}}</h5>
+                    </div>
+                    <br>
+                </div>
+            {% endfor %}
+        </div>              
+    </div>
+</div>
+{% endblock %}
